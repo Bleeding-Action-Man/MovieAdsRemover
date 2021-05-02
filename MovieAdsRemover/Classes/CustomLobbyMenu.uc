@@ -1,7 +1,10 @@
+// Modified class of LobbyMenu to show custon Textures
+// as IMGs or GIFs
+
 Class CustomLobbyMenu extends LobbyMenu DependsOn(MovieAdsRemover);
 
-var	texture ImgTex;
-var string ImgName;
+var	texture CustomTex;
+var string TexName;
 var MovieAdsRemover MutRef;
 
 function InitComponent(GUIController MyC, GUIComponent MyO)
@@ -54,19 +57,25 @@ function DrawPerk(Canvas Canvas)
       AdBackground.WinWidth = 320 * X + 10;
       AdBackground.WinHeight = 240 * X + 37;
 
-      // Show Canvas + Img
-      ImgName = MutRef.sTextureName;
-      ImgTex = texture(DynamicLoadObject(ImgName, class'texture', true));
-      Canvas.DrawTile(ImgTex, 320 * X, 240 * X,
-      0, 0, MutRef.iW, MutRef.iH);
+      // Show Canvas + Custom Texture
+      TexName = MutRef.sTextureName;
+      CustomTex = texture(DynamicLoadObject(TexName, class'texture', true));
+
+      // If 0, then FPS of animation will be same as Player's FPS
+      // Always recommended to 60
+      // If you are using an image instead of GIF, you can set this to 0
+      if(MutRef.fMaxFPS != 0) CustomTex.MaxFrameRate = MutRef.fMaxFPS;
+
+      // Draw Texture
+      Canvas.DrawTile(CustomTex, 320 * X, 240 * X, 0, 0, CustomTex.USize, CustomTex.VSize);
     }
     else
     {
-    AdBackground.WinTop=0;
-    AdBackground.WinLeft=0;
-    AdBackground.WinWidth=0;
-    AdBackground.WinHeight=0;
-    AdBackground.RenderWeight=0;
+      AdBackground.WinTop=0;
+      AdBackground.WinLeft=0;
+      AdBackground.WinWidth=0;
+      AdBackground.WinHeight=0;
+      AdBackground.RenderWeight=0;
     }
 
 

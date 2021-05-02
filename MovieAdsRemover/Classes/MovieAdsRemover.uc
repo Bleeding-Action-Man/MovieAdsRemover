@@ -11,7 +11,7 @@ class MovieAdsRemover extends Mutator Config(MovieAdsRemover_Config);
 // Config Vars
 var config bool bCompletelyDisable, bReplaceWithTexture;
 var config string sTextureName;
-var config int iW, iH;
+var config float fMaxFPS;
 
 // Local Vars
 var MovieAdsRemover Mut;
@@ -20,7 +20,8 @@ replication
 {
   unreliable if (Role == ROLE_Authority)
                   bCompletelyDisable,bReplaceWithTexture,
-                  sTextureName;
+                  sTextureName,
+                  fMaxFPS;
 }
 
 // Initialization
@@ -61,7 +62,7 @@ defaultproperties
 {
   GroupName = "KF-MovieAdsRemover"
   FriendlyName = "Movie Ads Remover - v1.0"
-  Description = "Remove 'Movies Section' from LobbyMenu, or replace with a custom Image for your own Server; Written by Vel-San"
+  Description = "Remove 'Movies Section' from LobbyMenu, or replace with a custom IMG/GIF for your own Server; Written by Vel-San"
   bAddToServerPackages=true
   RemoteRole = ROLE_SimulatedProxy
   bAlwaysRelevant = true
