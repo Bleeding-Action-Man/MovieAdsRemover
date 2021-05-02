@@ -1,3 +1,3 @@
-# CustomLobbyMenuADs
+# MovieAdsRemover
 
-Completely disable LobbyAdMenu (Movie section) or (WIP - Show your custom image (as a .utx))
+Completely disable LobbyAdMenu (Movie section) or show your custom image/GIF for all players
