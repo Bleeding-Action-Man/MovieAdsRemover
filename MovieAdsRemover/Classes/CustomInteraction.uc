@@ -26,5 +26,5 @@ defaultproperties {
   bActive= true
   bRequiresTick= true
 
-  lobbyMenuClass="CLM.CustomLobbyMenu"
+  lobbyMenuClass="MovieAdsRemover.CustomLobbyMenu"
 }

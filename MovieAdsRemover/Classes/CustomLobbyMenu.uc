@@ -1,4 +1,6 @@
-Class CustomLobbyMenu extends LobbyMenu;
+Class CustomLobbyMenu extends LobbyMenu DependsOn(MovieAdsRemover);
+
+var MovieAdsRemover MutRef;
 
 function InitComponent(GUIController MyC, GUIComponent MyO)
 {
@@ -38,13 +40,26 @@ function DrawPerk(Canvas Canvas)
 
   focused = Controller.ActivePage == self;
 
+  MutRef = class'MovieAdsRemover'.default.Mut;
+
   if (focused)
   {
     Canvas.SetPos(0.066797 * Canvas.ClipX + 5, 0.325208 * Canvas.ClipY + 30);
     X = Canvas.ClipX / 1024; // X & Y scale
 
-    // AdBackground.WinWidth = 320 * X + 10;
-    // AdBackground.WinHeight = 240 * X + 37;
+    if(!MutRef.bCompletelyDisable)
+    {
+      AdBackground.WinWidth = 320 * X + 10;
+      AdBackground.WinHeight = 240 * X + 37;
+    }
+    else
+    {
+    AdBackground.WinTop=0;
+    AdBackground.WinLeft=0;
+    AdBackground.WinWidth=0;
+    AdBackground.WinHeight=0;
+    AdBackground.RenderWeight=0;
+    }
 
     // TODO: Add support for texture loading
     /*Canvas.DrawTile(XXXX TEXTURE HERE, 320 * X, 240 * X,
@@ -147,11 +162,11 @@ function DrawPerk(Canvas Canvas)
 defaultproperties
 {
   Begin Object class=GUISectionBackground Name=ADBG
-    WinTop=0.0
-    WinLeft=0.0
-    WinWidth=0.0
-    WinHeight=0.0
-    RenderWeight=0.0
+    WinTop=0.325208
+    WinLeft=0.066797
+    WinWidth=0.322595
+    WinHeight=0.374505
+    RenderWeight=0.3
   End Object
   ADBackground=ADBG
 }
