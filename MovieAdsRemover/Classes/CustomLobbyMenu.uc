@@ -1,5 +1,7 @@
 Class CustomLobbyMenu extends LobbyMenu DependsOn(MovieAdsRemover);
 
+var	texture ImgTex;
+var string ImgName;
 var MovieAdsRemover MutRef;
 
 function InitComponent(GUIController MyC, GUIComponent MyO)
@@ -47,10 +49,16 @@ function DrawPerk(Canvas Canvas)
     Canvas.SetPos(0.066797 * Canvas.ClipX + 5, 0.325208 * Canvas.ClipY + 30);
     X = Canvas.ClipX / 1024; // X & Y scale
 
-    if(!MutRef.bCompletelyDisable)
+    if(!MutRef.bCompletelyDisable || MutRef.bReplaceWithTexture)
     {
       AdBackground.WinWidth = 320 * X + 10;
       AdBackground.WinHeight = 240 * X + 37;
+
+      // Show Canvas + Img
+      ImgName = MutRef.sTextureName;
+      ImgTex = texture(DynamicLoadObject(ImgName, class'texture', true));
+      Canvas.DrawTile(ImgTex, 320 * X, 240 * X,
+      0, 0, MutRef.iW, MutRef.iH);
     }
     else
     {
@@ -61,10 +69,7 @@ function DrawPerk(Canvas Canvas)
     AdBackground.RenderWeight=0;
     }
 
-    // TODO: Add support for texture loading
-    /*Canvas.DrawTile(XXXX TEXTURE HERE, 320 * X, 240 * X,
-        0, 0, 320, 240);
-    */
+
   }
 
   if ( KFPlayerController(PlayerOwner()) == none || KFPlayerController(PlayerOwner()).SelectedVeterancy == none ||

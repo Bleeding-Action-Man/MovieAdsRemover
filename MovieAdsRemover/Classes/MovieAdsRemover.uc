@@ -6,9 +6,12 @@
 
 class MovieAdsRemover extends Mutator Config(MovieAdsRemover_Config);
 
+#exec OBJ LOAD FILE=MARTex.utx
+
 // Config Vars
-var config bool bCompletelyDisable;
+var config bool bCompletelyDisable, bReplaceWithTexture;
 var config string sTextureName;
+var config int iW, iH;
 
 // Local Vars
 var MovieAdsRemover Mut;
@@ -16,19 +19,20 @@ var MovieAdsRemover Mut;
 replication
 {
   unreliable if (Role == ROLE_Authority)
-                  bCompletelyDisable,
+                  bCompletelyDisable,bReplaceWithTexture,
                   sTextureName;
 }
 
 // Initialization
 simulated function PostBeginPlay()
 {
-  local int i;
-
   // Pointer To self
   Mut = self;
   default.Mut = self;
   class'MovieAdsRemover'.default.Mut = self;
+
+  // Make sure Clients also download the Texture Package
+  AddToPackageMap("MARTex.utx");
 }
 
 simulated function Tick(float DeltaTime) {
